@@ -1,7 +1,7 @@
+```python
 from flask import Flask, render_template, request
 import cv2
 import os
-from deepface import DeepFace
 
 app = Flask(__name__)
 
@@ -102,13 +102,18 @@ def upload():
 
 
     # -------------------------------
-    # 3. DeepFace
+    # 3. DeepFace + FaceNet
     # -------------------------------
 
     deepface_result = "Face Not Detected"
+    facenet_result = "Unable to Compare"
 
     try:
 
+        # Lazy import to reduce startup memory
+        from deepface import DeepFace
+
+        # DeepFace detection
         DeepFace.extract_faces(
             img_path=filepath,
             detector_backend="opencv",
@@ -117,19 +122,7 @@ def upload():
 
         deepface_result = "Face Detected"
 
-    except Exception:
-
-        deepface_result = "Face Not Detected"
-
-
-    # -------------------------------
-    # 4. FaceNet
-    # -------------------------------
-
-    facenet_result = "Not Matched"
-
-    try:
-
+        # FaceNet verification
         verify = DeepFace.verify(
             img1_path="template.jpg",
             img2_path=filepath,
@@ -143,8 +136,9 @@ def upload():
         else:
             facenet_result = "Not Matched"
 
-    except Exception:
+    except Exception as e:
 
+        deepface_result = "Face Not Detected"
         facenet_result = "Unable to Compare"
 
 
@@ -180,3 +174,4 @@ if __name__ == "__main__":
         host="0.0.0.0",
         port=int(os.environ.get("PORT", 5000))
     )
+```
