@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Matching Project</title>
+</head>
+
+<body>
+
+    <h1>Image Matching & Face Detection</h1>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Check Image</button>
+    </form>
+
+    {% if viola %}
+        <h2>Results</h2>
+
+        <p>Template Matching: {{ template }}</p>
+        <p>Viola-Jones: {{ viola }}</p>
+        <p>DeepFace: {{ deepface }}</p>
+        <p>FaceNet: {{ facenet }}</p>
+    {% endif %}
+
+    {% if image %}
+        <h3>Uploaded Image</h3>
+        <img src="/{{ image }}" width="400">
+    {% endif %}
+
+</body>
+</html>
