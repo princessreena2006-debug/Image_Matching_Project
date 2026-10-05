@@ -1,5 +1,5 @@
 Flask
-opencv-python-headless==4.10.0.84
-deepface
+opencv-python-headless==4.9.0.80
+deepface[tensorflow]
 tf-keras
 gunicorn
