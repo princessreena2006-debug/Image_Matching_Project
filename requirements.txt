@@ -1,3 +1,6 @@
 streamlit
-opencv-contrib-python-headless
 numpy
+pillow
+deepface
+tf-keras
+ 
