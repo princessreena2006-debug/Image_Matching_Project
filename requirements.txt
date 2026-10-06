@@ -3,4 +3,3 @@ numpy
 pillow
 deepface
 tf-keras
- 
